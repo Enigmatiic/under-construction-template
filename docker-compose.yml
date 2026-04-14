@@ -1,8 +1,12 @@
+version: '3.8'
+
 services:
   website:
     image: nginx:alpine
     container_name: under_construction_site
     volumes:
-      - .:/usr/share/nginx/html
+      # This mounts your repository content directly into the container
+      - .:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
     restart: unless-stopped
-
