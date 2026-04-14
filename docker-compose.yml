@@ -8,3 +8,6 @@ services:
             git clone --depth 1 https://github.com/Enigmatiic/under-construction-template.git /tmp/site &&
             cp -r /tmp/site/. /usr/share/nginx/html/ &&
             nginx -g 'daemon off;'"
+        ports:
+            - "80:80"
+            - "443:443"
