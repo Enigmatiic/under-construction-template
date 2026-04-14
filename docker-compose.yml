@@ -1,9 +1,16 @@
 services:
-  website:
-    image: nginx:alpine
-    container_name: talmyma_site
-    ports:
-      - "80:80"
-    volumes:
-      - .:/usr/share/nginx/html:ro
-    restart: unless-stopped
+    website:
+        image: nginx:alpine
+        restart: unless-stopped
+        command: >
+            /bin/sh -c "apk add --no-cache git &&
+            rm -rf /usr/share/nginx/html/* &&
+            git clone --depth 1 https://github.com/Enigmatiic/under-construction-template.git /tmp/site &&
+            cp -r /tmp/site/. /usr/share/nginx/html/ &&
+            nginx -g 'daemon off;'"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.under-construction-template.rule=Host(`YOUR_DOMAIN_HERE`)
+            - traefik.http.routers.under-construction-template.entrypoints=websecure
+            - traefik.http.routers.under-construction-template.tls.certresolver=letsencrypt
+            - traefik.http.services.under-construction-template.loadbalancer.server.port=80
