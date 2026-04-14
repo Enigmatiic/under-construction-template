@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # The Website
+  website:
+    image: nginx:alpine
+    container_name: under_construction
+    volumes:
+      - .:/usr/share/nginx/html:ro
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+    restart: unless-stopped
+
+  # The Proxy + Automatic SSL
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    environment:
+      - VIRTUAL_HOST=talmyma.ca
+      - LETSENCRYPT_HOST=talmyma.ca
+      - LETSENCRYPT_EMAIL=contact@talmyma.ca
+    restart: unless-stopped
+
+  # SSL Certificate Automator
+  ssl-helper:
+    image: nginxproxy/acme-companion
+    container_name: ssl-helper
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+    restart: unless-stopped
+
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:
