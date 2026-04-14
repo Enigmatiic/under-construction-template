@@ -14,3 +14,8 @@ services:
             - traefik.http.routers.under-construction-template.entrypoints=websecure
             - traefik.http.routers.under-construction-template.tls.certresolver=letsencrypt
             - traefik.http.services.under-construction-template.loadbalancer.server.port=80
+        networks:
+            - talmyma_default
+networks:
+  talmyma_default:
+    external: true
