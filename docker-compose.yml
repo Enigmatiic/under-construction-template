@@ -1,10 +1,22 @@
 version: '3.8'
 
 services:
-  # Votre site web
   website:
     image: nginx:alpine
-    container_name: site_under_construction
+    container_name: under_construction_site
     volumes:
-      - ./app:/usr/share/nginx/html
+      - .:/usr/share/nginx/html
+    labels:
+      - "traefik.enable=true"
+      # Replace 'your-domain.com' with your actual domain
+      - "traefik.http.routers.mysite.rule=Host(`talmyma.ca`)"
+      - "traefik.http.routers.mysite.entrypoints=websecure"
+      - "traefik.http.routers.mysite.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mysite.loadbalancer.server.port=80"
+    networks:
+      - traefik-proxy # Must match the network used by Hostinger's Traefik
     restart: unless-stopped
+
+networks:
+  traefik-proxy:
+    external: true
