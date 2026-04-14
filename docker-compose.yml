@@ -9,5 +9,4 @@ services:
             cp -r /tmp/site/. /usr/share/nginx/html/ &&
             nginx -g 'daemon off;'"
         ports:
-            - "80:80"
-            - "443:443"
+            - "8080:80"
