@@ -10,7 +10,7 @@ services:
             nginx -g 'daemon off;'"
         labels:
             - traefik.enable=true
-            - traefik.http.routers.under-construction-template.rule=Host(`YOUR_DOMAIN_HERE`)
+            - traefik.http.routers.under-construction-template.rule=Host(`talmyma.ca`)
             - traefik.http.routers.under-construction-template.entrypoints=websecure
             - traefik.http.routers.under-construction-template.tls.certresolver=letsencrypt
             - traefik.http.services.under-construction-template.loadbalancer.server.port=80
