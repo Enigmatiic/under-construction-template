@@ -8,5 +8,13 @@ services:
             git clone --depth 1 https://github.com/Enigmatiic/under-construction-template.git /tmp/site &&
             cp -r /tmp/site/. /usr/share/nginx/html/ &&
             nginx -g 'daemon off;'"
-        ports:
-            - "8080:80"
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.ca`)
+            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
+            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
+            - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=3001
+
+networks:
+  talmyma_default:
+    external: true
