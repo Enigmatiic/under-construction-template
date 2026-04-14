@@ -1,12 +1,11 @@
-version: '3.8'
-
 services:
   website:
     image: nginx:alpine
     container_name: under_construction_site
     volumes:
-      # This mounts your repository content directly into the container
+      # Maps your repo content directly into the Nginx web folder
       - .:/usr/share/nginx/html:ro
     ports:
-      - "80:80"
+      - "80:80"    # Standard web traffic
+      - "443:443"  # For SSL traffic
     restart: unless-stopped
