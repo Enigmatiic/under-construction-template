@@ -1,20 +1,15 @@
 services:
   website:
-    image: nginx:alpine
-    container_name: under_construction_site
-    volumes:
-      - .:/usr/share/nginx/html
-    restart: unless-stopped
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.ca`)
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-      - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80
-    networks:
-      - talmyma_default # Must match the network used by Hostinger's Traefik
-
-networks:
-  talmyma_default:
-    external: true
+  image: nginx:alpine
+  container_name: talmyma-website
+  restart: unless-stopped
+  volumes:
+    - ./:/usr/share/nginx/html:ro
+  labels:
+    - traefik.enable=true
+    - traefik.http.routers.talmyma.rule=Host(`talmyma.ca`) || Host(`www.talmyma.ca`)
+    - traefik.http.routers.talmyma.entrypoints=websecure
+    - traefik.http.routers.talmyma.tls.certresolver=letsencrypt
+    - traefik.http.services.talmyma.loadbalancer.server.port=80
+    - traefik.docker.network=talmyma_default
 
