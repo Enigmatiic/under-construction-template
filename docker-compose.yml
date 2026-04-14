@@ -6,6 +6,5 @@ services:
       # Maps your repo content directly into the Nginx web folder
       - .:/usr/share/nginx/html:ro
     ports:
-      - "80:80"    # Standard web traffic
-      - "443:443"  # For SSL traffic
+      - "8080:80"    # Standard web traffic
     restart: unless-stopped
