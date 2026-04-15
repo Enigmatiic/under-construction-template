@@ -17,10 +17,10 @@ services:
             - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
             - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80
         networks:
-            - talmyma_default
+            - traefik-proxy
 volumes:
     talmyma_data:
 networks:
-    talmyma_default:
+    traefik-proxy:
         external: true
 
