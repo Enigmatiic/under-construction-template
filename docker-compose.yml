@@ -16,5 +16,10 @@ services:
             - traefik.http.routers.talmyma.entrypoints=websecure
             - traefik.http.routers.talmyma.tls.certresolver=letsencrypt
             - traefik.http.services.talmyma.loadbalancer.server.port=80
+        networks:
+            - traefik-proxy
 volumes:
     talmyma_data:
+networks:
+    traefik-proxy:
+        external: true
