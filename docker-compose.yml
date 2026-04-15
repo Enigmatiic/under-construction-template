@@ -22,5 +22,4 @@ volumes:
     talmyma_data:
 networks:
     traefik-proxy:
-        external: true
 
