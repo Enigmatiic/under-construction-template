@@ -16,5 +16,5 @@ services:
             - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=3001
 
 networks:
-  talmyma_default:
+  traefik-proxy:
     external: true
