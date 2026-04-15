@@ -12,10 +12,10 @@ services:
             - talmyma_data:/usr/share/nginx/html/
         labels:
             - traefik.enable=true
-            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`talmyma.ca`)
-            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
-            - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
-            - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80
+            - traefik.http.routers.talmyma.rule=Host(`talmyma.ca`)
+            - traefik.http.routers.talmyma.entrypoints=websecure
+            - traefik.http.routers.talmyma.tls.certresolver=letsencrypt
+            - traefik.http.services.talmyma.loadbalancer.server.port=80
         networks:
             - traefik-proxy
 volumes:
