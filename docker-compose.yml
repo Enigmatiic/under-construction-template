@@ -9,7 +9,7 @@ services:
             cp -r /tmp/site/. /usr/share/nginx/html/ &&
             nginx -g 'daemon off;'"
         volumes:
-            - /usr/share/nginx/html/
+            - talmyma:/usr/share/nginx/html/
         labels:
             - traefik.enable=true
             - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.ca`)
